@@ -1,0 +1,29 @@
+#include <iostream>
+
+using namespace std;
+
+int main() {
+    int alisinkiler[3];
+    int bobunkiler[3];
+    int alispuan=0;
+    int bobpuan=0;
+   
+    
+    for(int x=0; x<3; x++){
+      cin>>alisinkiler[x];
+} for(int x=0; x<3; x++){
+        cin>>bobunkiler[x];
+} for(int x=0; x<3; x++){
+        if (alisinkiler[x]>bobunkiler[x]){ alispuan++;
+                                         }
+   else if(alisinkiler[x]<bobunkiler[x])
+       { 
+       bobpuan++; 
+   }
+        }
+        cout<<alispuan<<" "<<bobpuan;
+        return 0;
+    }
+        
+          
+        
