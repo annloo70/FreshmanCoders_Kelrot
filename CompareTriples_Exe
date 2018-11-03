@@ -1,0 +1,23 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+	int alice[4], bob[4];
+	alice[3] = 0; bob[3] = 0;
+	for (int i = 0; i < 6; i++)
+	{
+		if (i < 3)
+			cin >> alice[i];//ilk üç dönüşte elimde sadece alice olucak ve bunları alice dizisinin 0-1-2 indexlerine alacağım
+		else
+		{
+			cin >> bob[i - 3];
+			//bu noktada elimde alice'in tamamı olduğuna göre artık bobdan eleman alıp karşılaştırma yapabilirim
+			if (alice[i-3] > bob[i-3])
+				alice[3]++;
+			else if (alice[i] < bob[i])//else yazsaydım beraberlik durumlarında sorun olacaktı
+				bob[3]++;
+		}
+	}
+	cout << alice[3] << " " << bob[3];
+	system("pause");
+}
