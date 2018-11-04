@@ -1,0 +1,24 @@
+# FreshmanCoders_Kelrot
+Codes Written by freshman software developers of team KelRot5655 for Hackerrank Problems
+
+
+#include <iostream>
+using namespace std;
+
+int main() {
+	int triplet_a[3], triplet_b[3], sayac_a = 0, sayac_b = 0;
+
+		cout << "alice'in puanlarini giriniz";
+		cin >> triplet_a[0] >> triplet_a[1] >> triplet_a[2];
+		cout << "bob'un puanlarini giriniz";
+		cin >> triplet_b[0] >> triplet_b[1] >> triplet_b[2];
+
+		for (int i = 0; i < 3; i++) {
+
+			if (triplet_a[i] > triplet_b[i]) sayac_a ++;
+			else if (triplet_a[i] < triplet_b[i]) sayac_b ++;
+			else {};
+    }
+		cout << sayac_a << " " << sayac_b;
+		return 0;
+		}
