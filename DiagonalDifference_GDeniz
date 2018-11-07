@@ -1,0 +1,50 @@
+# FreshmanCoders_Kelrot
+Codes Written by freshman software developers of team KelRot5655 for Hackerrank Problems
+
+#include <iostream>
+
+using namespace std;
+
+int main() {
+    int n,sum_r=0,sum_l=0,dD;
+    //dD means diagonalDifference
+    cin >> n;
+    //kac satir ve sutundan oluşacagını giriyoruz
+    int arr[n][n];
+    
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            cin >> arr[i][j];
+        }
+    }
+    //degerleri girdik
+    
+    for (int i = 0; i < n; i++)
+    {
+        sum_r = sum_r+arr[i][i];
+    }
+    //sag caprazin toplami
+    
+    int i=0;
+    for(int j=n-1 ; j>=0 ;j--)
+    {
+        sum_l=sum_l+arr[i][j];
+        i++;
+    }
+    //sol caprazin toplami
+    if(sum_r>sum_l)
+    {
+        dD= sum_r-sum_l ;
+    }
+    else if(sum_r<sum_l)
+    {
+        dD=sum_l-sum_r;
+    }
+    //bu islemler mutlak deger icin
+     
+    cout<<dD;
+    return 0;
+}
+    
