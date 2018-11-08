@@ -1,0 +1,17 @@
+#include<iostream>
+ using namespace std;
+int main(){
+    int kola;
+    int k[kola][kola];
+    cin>>kola;
+    int capraz1=0;
+    int capraz2=0;
+    for(int icetea=0; icetea<kola; icetea++){
+        for(int fusetea=0; fusetea<kola; fusetea++){
+            cin>>k[icetea][fusetea];
+            if(icetea==fusetea) capraz1+=k[icetea][fusetea];
+            if(icetea==kola-1-fusetea) capraz2+=k[icetea][fusetea];
+            }
+        }
+    cout<< abs(capraz1-capraz2)<<endl;
+    return 0;}
