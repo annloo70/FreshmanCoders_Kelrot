@@ -1,0 +1,67 @@
+#include <iostream>
+#include <string>
+#include <Spark.h>
+#include <Victor.h>
+#include "WPILib.h"
+#include "DigitalInput.h"
+#include "DigitalOutput.h"
+#include "DigitalSource.h"
+#include "cstdlib"
+#include "math.h"
+#include <string>
+#include<ADXRS450_Gyro.h>
+using namespace frc;
+class Robot : public frc::IterativeRobot {
+private:
+RobotDrive *atik;
+ADXRS450_Gyro gyro;
+Joystick js{0};
+
+Talon sagOn{4};
+Talon sagArka{5};
+Talon solOn{7};
+Talon solArka{6};
+const float kP= 0.2;
+double now,then;
+bool a=true;
+public:
+	void RobotInit() {
+      atik=new RobotDrive(solOn,solArka,sagOn,sagArka);
+	}
+	void AutonomousInit() override {
+gyro.Reset();
+
+
+	}
+    void AutonomousPeriodic(){
+
+   float angle = gyro.GetAngle();
+   if(angle<90)
+   {
+    atik->Drive(0.3,1);
+   }
+   else if(a)
+   {
+	   now=clock();
+	   a=false;
+   }
+   else
+   {
+	   then=(clock()-now)/CLOCKS_PER_SEC;
+	   if(then<10.0)
+	    atik->Drive(0.3,-angle*kP);
+   }
+
+    }
+	void TeleopInit(){
+		gyro.Reset();
+	}
+	void TeleopPeriodic() {
+		float angle= gyro.GetAngle();
+		std::cout<<angle<<std::endl;
+		atik->ArcadeDrive(-js.GetRawAxis(1),-js.GetRawAxis(0));
+	}
+
+	};
+
+START_ROBOT_CLASS(Robot)
