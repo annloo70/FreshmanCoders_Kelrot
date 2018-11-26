@@ -1,0 +1,63 @@
+
+#include <iostream>
+#include <string>
+#include <Spark.h>
+#include <Victor.h>
+#include "WPILib.h"
+#include "DigitalInput.h"
+#include "DigitalOutput.h"
+#include "DigitalSource.h"
+#include "cstdlib"
+#include "math.h"
+#include <string>
+#include<ADXRS450_Gyro.h>
+using namespace frc;
+class Robot : public frc::IterativeRobot {
+private:
+
+	int temiz_uzaklik() {
+		int sum=0;
+		for(int i=1;i<26;i++){
+	    sum += ultraAnalog.GetValue();
+		}
+
+	 double raw=sum/25;
+	 int cm= (raw/9.8)*2.54*1.25;
+	 return cm;
+}
+RobotDrive atik{solOn,solArka,sagOn,sagArka};
+Joystick js{0};
+
+Talon sagOn{4};
+Talon sagArka{5};
+Talon solOn{7};
+Talon solArka{6};
+
+ADXRS450_Gyro gyro;
+AnalogInput ultraAnalog{0};
+public:
+
+	void RobotInit() {
+
+	}
+	void AutonomousInit() override {
+
+	}
+    void AutonomousPeriodic(){
+
+    }
+	void TeleopInit(){
+
+
+	}
+	void TeleopPeriodic() {
+		atik.ArcadeDrive(-js.GetY(),-js.GetX());
+
+		std::cout<<temiz_uzaklik()<<std::endl;
+
+
+	}
+
+	};
+
+START_ROBOT_CLASS(Robot)
