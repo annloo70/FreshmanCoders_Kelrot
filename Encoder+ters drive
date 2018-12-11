@@ -1,0 +1,76 @@
+
+#include <iostream>
+#include <string>
+#include <Spark.h>
+#include <Victor.h>
+#include "WPILib.h"
+#include "DigitalInput.h"
+#include "DigitalOutput.h"
+#include "DigitalSource.h"
+#include "cstdlib"
+#include "math.h"
+#include <string>
+#include<ADXRS450_Gyro.h>
+using namespace frc;
+class Robot : public frc::IterativeRobot {
+private:
+
+bool ters=false;
+RobotDrive *atik;
+Joystick js{0};
+
+Talon sagOn{4};
+Talon sagArka{5};
+Talon solOn{7};
+Talon solArka{6};
+
+double tekerlek_cevre= 15.24*3.14;
+DigitalInput kizilotesi{8};
+ADXRS450_Gyro gyro;
+AnalogInput ultraAnalog{0};
+Encoder *sampleEncoder = new Encoder(5,4, false, Encoder::EncodingType::k4X);
+
+public:
+
+	void RobotInit() {
+		atik=new RobotDrive(solOn,solArka,sagOn,sagArka);
+	}
+	void AutonomousInit() override {
+      sampleEncoder->Reset();
+	}
+    void AutonomousPeriodic(){
+   bool yakin=!kizilotesi.Get();
+   std::cout<<yakin<<std::endl;
+   int count = sampleEncoder->Get();
+   double mesafe= tekerlek_cevre*count/1024;
+   if(mesafe<200 && yakin==0)
+   {
+	 float angle= gyro.GetAngle();
+	  atik->Drive(0.3,-angle*0.2);
+   }
+   else
+   {
+	 atik->Drive(0.0,0.0);
+   }
+
+ }
+
+	void TeleopInit(){
+
+	}
+	void TeleopPeriodic() {
+
+if(js.GetRawButtonPressed(3)){
+
+	if(!ters)
+	  atik=new RobotDrive(sagArka,sagOn,solArka,solOn);
+	else
+	  atik=new RobotDrive(solOn,solArka,sagOn,sagArka);
+	ters=!ters;
+}
+atik->ArcadeDrive(-js.GetY(),-js.GetX());
+	}
+};
+
+START_ROBOT_CLASS(Robot)
+
