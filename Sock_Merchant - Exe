@@ -1,0 +1,40 @@
+#include <iostream>
+using namespace std;
+
+int main()
+{
+	//değişken,dizi tanımlamaları
+
+	int k;//çorap sayısı
+	cin >> k;
+	int score = 0, ciftler = 0, val;
+	int socks[k];
+
+	//diziye elemanları alma
+	for (int i = 0; i < k; i++)
+	{
+		cin >> socks[i];
+	}
+	
+
+	for (int i = 0; i < k; i++)
+	{
+		if (socks[i] != NULL)//eğer çorap değeri null değil ise içteki döngüde aranacak değer olarak atanır
+			val = socks[i];
+		else
+			continue;
+
+		for (int j = 0; j < k; j++)
+		{
+			if (val == socks[j])//çorap değeri eşleşirse skor bir arttırılıyor ve çorap değeri null yapılıyor
+			{
+				score++;
+				socks[j] = NULL;
+			}
+		}
+		ciftler += score / 2;//çift sayısı giriliyor
+		score = 0;//bir sonraki çift sayımı için skor sıfırlanıyor
+	}
+	cout << ciftler;
+	system("pause");
+}
